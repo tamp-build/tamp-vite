@@ -45,4 +45,28 @@ public static class Vitest
         configure?.Invoke(s);
         return s.ToCommandPlan(tool);
     }
+
+    // ---- Object-init overloads (TAM-161) ----
+    // Two equivalent authoring styles; both produce identical CommandPlans. Fluent
+    // stays canonical in docs; object-init available for consumers who prefer the
+    // C# initializer shape.
+    //
+    //     Vitest.Run(tool, new() { TestNamePattern = "math", UpdateSnapshots = true });
+    //
+    // is equivalent to:
+    //
+    //     Vitest.Run(tool, s => s.SetTestNamePattern("math").SetUpdateSnapshots());
+
+    public static CommandPlan Run(Tool tool, VitestRunSettings settings) => Build(tool, settings);
+    public static CommandPlan Watch(Tool tool, VitestWatchSettings settings) => Build(tool, settings);
+    public static CommandPlan Related(Tool tool, VitestRelatedSettings settings) => Build(tool, settings);
+    public static CommandPlan Bench(Tool tool, VitestBenchSettings settings) => Build(tool, settings);
+    public static CommandPlan Typecheck(Tool tool, VitestTypecheckSettings settings) => Build(tool, settings);
+
+    private static CommandPlan Build<T>(Tool tool, T settings) where T : VitestSettingsBase
+    {
+        if (tool is null) throw new ArgumentNullException(nameof(tool));
+        if (settings is null) throw new ArgumentNullException(nameof(settings));
+        return settings.ToCommandPlan(tool);
+    }
 }

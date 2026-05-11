@@ -40,4 +40,27 @@ public static class Vite
         configure?.Invoke(s);
         return s.ToCommandPlan(tool);
     }
+
+    // ---- Object-init overloads (TAM-161) ----
+    // Two equivalent authoring styles; both produce identical CommandPlans. Fluent
+    // stays canonical in docs; object-init available for consumers who prefer the
+    // C# initializer shape.
+    //
+    //     Vite.BuildProject(tool, new() { Mode = "production", OutDir = "dist" });
+    //
+    // is equivalent to:
+    //
+    //     Vite.BuildProject(tool, s => s.SetMode("production").SetOutDir("dist"));
+
+    public static CommandPlan Dev(Tool tool, ViteDevSettings settings) => Build(tool, settings);
+    public static CommandPlan BuildProject(Tool tool, ViteBuildSettings settings) => Build(tool, settings);
+    public static CommandPlan Preview(Tool tool, VitePreviewSettings settings) => Build(tool, settings);
+    public static CommandPlan OptimizeDeps(Tool tool, ViteOptimizeDepsSettings settings) => Build(tool, settings);
+
+    private static CommandPlan Build<T>(Tool tool, T settings) where T : ViteSettingsBase
+    {
+        if (tool is null) throw new ArgumentNullException(nameof(tool));
+        if (settings is null) throw new ArgumentNullException(nameof(settings));
+        return settings.ToCommandPlan(tool);
+    }
 }

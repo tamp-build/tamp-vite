@@ -196,7 +196,7 @@ public sealed class VitestTests
         Assert.Throws<ArgumentNullException>(() => Vitest.Run(null!));
         Assert.Throws<ArgumentNullException>(() => Vitest.Watch(null!));
         Assert.Throws<ArgumentNullException>(() => Vitest.Related(null!, s => s.AddFile("a")));
-        Assert.Throws<ArgumentNullException>(() => Vitest.Related(FakeTool(), null!));
+        Assert.Throws<ArgumentNullException>(() => Vitest.Related(FakeTool(), (Action<VitestRelatedSettings>)null!));
         Assert.Throws<ArgumentNullException>(() => Vitest.Bench(null!));
         Assert.Throws<ArgumentNullException>(() => Vitest.Typecheck(null!));
         Assert.Throws<ArgumentNullException>(() => Vitest.Raw(null!, "--help"));
