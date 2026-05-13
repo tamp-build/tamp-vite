@@ -10,7 +10,12 @@
     <PackageId>Tamp.Vite.V5</PackageId>
     <Description>Tamp wrapper for Vite 5.x AND Vitest 1.x — dev/build/preview/optimize plus vitest run/watch/related/bench/typecheck. Two facades in one package since their majors are pinned together.</Description>
     <IsPackable>true</IsPackable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="$(TampCorePath)" Condition="'$(TampCoreMode)' == 'project'" />
