@@ -4,6 +4,13 @@ All notable changes to **Tamp.Vite** are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this repo uses
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Package now ships XML documentation files (`.xml`) alongside the assembly, so consumers get IntelliSense and API docs. (Mirrors [tamp-build/tamp#3](https://github.com/tamp-build/tamp/pull/50).)
+
+
 ## [0.1.1]
 
 ### Added
